@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require 'optparse'
+
+require 'colorful_days'
+
+def parse_code(code)
+  Hash[
+    code.split(",").map{|item|
+      key, color = item.strip.split(":", 2)
+      [key, key.similar_color(color)]
+    }
+  ]
+end
+
+def load_yaml(filename)
+  Hash[
+    YAML.load_file(filename).map{|key, value|
+      [key, key.similar_color(value)]
+    }
+  ]
+end
+
+replace_table = {}.tap do |table|
+  OptionParser.new do |opts|
+    opts.on("-e CODE") do |code|
+      table.update(parse_code(code))
+    end
+    opts.on("-f FILENAME") do |filename|
+      table.update(load_yaml(filename))
+    end
+  end.parse!
+end
+
+pattern = Regexp.new(replace_table.keys.join("|"))
+ARGF.each do |line|
+  puts line.gsub(pattern, replace_table)
+end
+
