@@ -49,6 +49,22 @@ module ColorfulDays
 end
 
 class String
+  def color(*param)
+    case param.size
+    when 1
+      case param.first
+      when /#?[0-9a-fA-F]{6}/
+        similar_color(*param)
+      when Symbol, String
+        ansi(*param)
+      else
+        color_256(*param)
+      end
+    when 3
+      rgb(*param)
+    end
+  end
+
   # 0..255 =~ i
   def color_256(i)
     "\033[38;5;#{i}m#{self}\033[0m"
