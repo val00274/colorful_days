@@ -1,6 +1,6 @@
 # ColorfulDays
 
-TODO: Write a gem description
+ターミナル上で文字色を変更. (256色terminal限定)
 
 ## Installation
 
@@ -18,7 +18,38 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+require 'colorful_days'
+
+puts "foo".color(1) # red (color index)
+puts "foo".color(:green) # green (named color)
+puts "foo".color(5, 0, 2) # pink (RGB(6x6x6))
+puts "foo".gray(5) # dark gray (gray color:0-23)
+puts "foo".color("#f3a68c") # salmon pink (similar color)
+```
+
+- color index
+  - 0-15 : system color
+  - 16-231 : RGB color
+  - 232-255 : gray color
+
+- named colors
+  - :black
+  - :red
+  - :green
+  - :yellow,
+  - :blue
+  - :magenta
+  - :cyan
+  - :white,
+  - :light_black
+  - :light_red
+  - :light_green
+  - :light_yellow,
+  - :light_blue
+  - :light_magenta
+  - :light_cyan
+  - :light_white,
 
 ## Contributing
 
